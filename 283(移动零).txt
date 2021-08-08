@@ -1,0 +1,24 @@
+class Solution {
+    /**
+     * 思路：一开始自也想到交换值的办法，大体知道思路，但是代码没写正确
+     * 这个是看了课程后写出来的
+     */
+    public void moveZeroes(int[] nums) {
+        //从0开始
+        int j = 0;
+        //遍历数组
+        for (int i = 0; i < nums.length; i ++){
+            //如果元素不等于0
+            if (nums[i] != 0) {
+                //用一个交换值记录第下标为j的数组的值
+                int exValue = nums[j];
+                //把第i个元素的值赋值给下标为j的元素
+                nums[j] = nums[i];
+                //再把之前记录的下表为j元素的值赋值给下标为i的元素，实现交换值
+                nums[i] = exValue;
+                //完成后j的下标加加
+                j ++ ;
+            }
+        }
+    }
+}
