@@ -1,0 +1,39 @@
+class Solution {
+    /** 思路：1、按照课程的sort后比对
+     * 2、hash、map统计频次
+     */
+    public boolean isAnagram(String s, String t) {
+        //长度不同，直接不满足返回
+        if (s.length() != t.length()) {
+            return false;
+        }
+        /** 方法一 */
+        // //将s和t转换为数组
+        // char[] str1 = s.toCharArray();
+        // char[] str2 = t.toCharArray();
+        // //排序
+        // Arrays.sort(str1);
+        // Arrays.sort(str2);
+        // //对比排序后结果是否相同
+        // return Arrays.equals(str1, str2);
+        
+        /**方法二 */
+        //定义一个26位字母的字符串
+        int[] table = new int[26];
+        //遍历字符串长度次数
+        for (int i = 0; i < s.length(); i++) {
+            //当s字符串出现一次字母，就在对应table数组的位置上加一
+            table[s.charAt(i) - 'a'] ++;
+             //当s字符串出现一次字母，就在table数组对应的位置上减一
+            table[t.charAt(i) - 'a'] --;
+        }
+        //遍历长度次数
+        for (int i = 0 ; i < 26; i ++) {
+            //如果当有位置不为0，则说明不满足条件
+            if (table[i] != 0)
+                return false;
+        }
+        return true;
+
+    }
+}

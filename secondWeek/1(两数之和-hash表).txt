@@ -1,0 +1,40 @@
+class Solution {
+    /** 自己只想到：两层循环，值之和等于目标值返回下标
+     *  看了题解的map，自己也想到了map，但是没有想到怎么取第二个数，题解的很巧妙
+     */
+    public int[] twoSum(int[] nums, int target) {
+        /**方法一：暴力法 */
+        // //定义目标长度为2的数组
+        // int[] targets = new int[2];
+        // //遍历数组的长度
+        // int numslength = nums.length;
+        // //遍历数组，第一遍从第0个开始，到倒数第二个元素
+        // for ( int i = 0; i < numslength -1; i ++) {
+        //     //遍历数组，从i的下一个值开始
+        //     for ( int j = i + 1; j < numslength; j ++) {
+        //         //满足条件，则记录下标值
+        //         if ( nums[i] + nums[j] == target) {
+        //             targets[0] = i;
+        //             targets[1] = j;
+        //             return targets;
+        //         }
+        //     }
+        // }
+
+        /**方法二：利用哈希表求解 */
+        Map<Integer,Integer> sunMap = new HashMap();
+        //遍历字符产长度
+        for (int i = 0; i < nums.length; i ++) {
+            //当前值与map中存的值之和等于目标值的key值存在时
+            if (sunMap.containsKey(target - nums[i])) {
+                //返回一个当前下标和map中满足条件的key值的下标值数组
+                return new int[] {sunMap.get(target-nums[i]),i};
+            }
+            //把对应的值和下标存入hashmap中
+            sunMap.put(nums[i],i);
+        }
+
+        //方法返回值
+        return new int[0];
+    }
+}
