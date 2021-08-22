@@ -1,0 +1,27 @@
+class Solution {
+
+    /**没能自己想出结局方案，根据题解后再写出，得多练 */
+    private List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> combine(int n, int k) {
+        getCombination(n,k,1,new ArrayList<>());
+        return res;
+    }
+    public void getCombination(int n, int k, int start, List<Integer> list){
+        //terminator
+        if (k == 0) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        //process current logic
+        //循环遍历参数，阈值为n - k + 1
+        for (int  i = start; i <= n - k + 1; i ++) {
+            //把值加入集合
+            list.add(i);
+            //递归执行
+            getCombination(n, k - 1, i + 1 , list);
+            //删除本层加入的数值
+            list.remove(list.size() - 1);
+        }
+
+    }
+}
