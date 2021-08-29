@@ -1,0 +1,56 @@
+/**
+ * 没能有较好的思路，对着题解默写
+ */
+class Solution {
+    public int robotSim(int[] commands, int[][] obstacles) {
+        //定义4个方向的值 北东南西
+        //确定方向 0，1（东），0，-1（西）
+        int[] direX = {0,1,0,-1};
+        //确定方向 0，1（东），0，-1（西）
+        int[] direY = {1,0,-1,0};
+        //定义初始x坐标和y坐标的值
+        int x = 0;
+        int y = 0;
+        //定义状态 4个方向 北东南西 用0123代替
+        int status = 0;
+        //欧氏距离初始值
+        int maxDistance = 0;
+        //set接收障碍物坐标，set不可重复特性，
+        HashSet<String> obstSet = new HashSet<>();
+        for (int i = 0; i < obstacles.length; i ++) {
+            //获取x坐标和y坐标的值字符串
+            obstSet.add(obstacles[i][0]+","+obstacles[i][1]);
+        }
+        //遍历行动数组
+        for (int i = 0; i < commands.length; i ++) {
+            //当为-1即为向右行动（东）
+            if (commands[i] == -1) {
+                status += 1;
+            }
+            //当为-3的为向左行动（西）
+            if (commands[i] == -2)
+                status += 3;
+            //其余为距离点
+            if (commands[i] > 0) {
+                //遍历长度
+                for (int j = 0; j < commands[i]; j ++) {
+                    //x轴加上对应距离
+                    int nextX = x + direX[status%4];
+                    //y轴加上对应距离
+                    int nexty = y + direY[status%4];
+                    //遇到障碍物停止
+                    if (obstSet.contains(nextX+","+nexty)) {
+                        break;
+                    }else {
+                        //x和y的欧式距离
+                        x = nextX;
+                        y = nexty;
+                        maxDistance = Math.max(maxDistance,x*x+y*y);
+                    }
+                }
+            } 
+        }
+        //返回最大距离
+        return maxDistance;
+    }
+}

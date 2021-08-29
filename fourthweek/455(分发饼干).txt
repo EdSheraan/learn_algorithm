@@ -1,0 +1,26 @@
+class Solution {
+    //利用贪心求解
+    public int findContentChildren(int[] g, int[] s) {
+        //对数组进行排序
+        Arrays.sort(g);
+        Arrays.sort(s);
+        //获取数组长度
+        int lesG = g.length;
+        int lesS = s.length;
+        //声明输出数量
+        int count = 0;
+        //孩子数量
+        int i = 0;
+        //饼干数量
+        int j = 0;
+        while (i < lesG && j < lesS) {
+            //当满足条件饼干的量大于等于孩子的胃口值
+            if (s[j] >= g[i]) {
+                i ++;
+            }
+            j ++;
+        }
+        //返回孩子数量
+        return i;
+    }
+}

@@ -1,0 +1,32 @@
+/**
+ * 利用贪心算法求解：自己能想到维护5和10的2个变量，但是对于20的情况，没能考虑完善   
+ */
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        //5美元数量和10美元数量
+        int fiveD = 0;
+        int tenD = 0;
+        //遍历数组,前提调教数组只有5，10，20
+        for (int i = 0; i < bills.length; i ++) {
+            //情况1 5美元，不用找零钱，并记录个数
+            if (bills[i] == 5) {
+                fiveD ++;
+            }else if (bills[i] == 10) {//情况二，10美元需要找5美元零钱，并记录10美元个数
+                fiveD --;
+                tenD ++;
+            }else if (bills[i] == 20) {//情况3，20美元需要还15美元
+                //优先考虑还最大的，即当还有10美元的时候，先还1张10美元和1张5美元
+                if (tenD > 0) {
+                    tenD --;
+                    fiveD --;
+                }else //当没有10美元，则还3张5美元的
+                    fiveD -= 3;
+                
+            }
+            //当出现负数，即多还了自己有的钱，就是错的
+            if (fiveD < 0 || tenD < 0)
+                return false;
+        }
+        return true;
+    }
+}
