@@ -1,0 +1,27 @@
+class Solution {
+    public String reverseWords(String s) {
+        StringBuilder res = new StringBuilder();
+        int start = 0 ;
+        // 去除前面的空格
+        while(s.charAt(start)==' ') start++;
+        int len = s.length();
+        // 从后往前遍历字符串 定义i，j j记录单词末尾 i为单词起始
+        for(int i=len-1 ; i>=start ; i--){
+            // 当遍历字符是空格时i,j 同步向前移动，j保存第一个不为空格的字符
+            int j = i;
+            // 当i位置不为空格时，i继续向前移动知道遇到空格
+            while(i>=0 && s.charAt(i)!=' '){
+                i--;
+            }
+            // 若i！=j 此时i代表单词首个字母前一个空格 j为单词末尾
+            if(i!=j){
+                res.append(s.substring(i+1,j+1)); // substring endindex 不包括j+1；
+                // 第一个单词前都加空格
+                if(i>start){
+                    res.append(' ');
+                }
+            }
+        }
+        return res.toString();
+    }
+}

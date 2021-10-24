@@ -1,0 +1,41 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        // 一步到位，每一行、每一列、每一宫各用一个int类型的表示（只需要用到9位）
+        int[] rows = new int[9];
+        int[] cols = new int[9];
+        int[] gongs = new int[9];
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] != '.') {
+                    // 转换成十进制的值
+                    int val = board[i][j] - '0';
+                    // 查看行、列、宫是否被占用
+                    // 宫的计算方式为：i/3*3+j/3，表示每九个小格子为一宫
+                    if (occupied(rows[i], val) 
+                            || occupied(cols[j], val) 
+                            || occupied(gongs[i / 3 * 3 + j / 3], val)) {
+                        // 如果行、列、宫中任意一个已占用，返回false
+                        return false;
+                    }
+                    // 设置行、列、宫中这个值已占用
+                    set(rows, i, val);
+                    set(cols, j, val);
+                    set(gongs, i / 3 * 3 + j / 3, val);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean occupied(int data, int val) {
+        // 查看第 val 位是否为1，即已占用
+        return ((data >> val) & 1) == 1;
+    }
+
+    private void set(int[] arr, int pos, int val) {
+        // 设置第 val 位为1，占用这个位置
+        arr[pos] |= (1 << val);
+    }
+}
