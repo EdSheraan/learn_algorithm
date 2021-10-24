@@ -1,0 +1,18 @@
+class Solution {
+    /**
+     * 动态规划求解：fn = f(n - 1) + f(n -2)
+     */
+    public int climbStairs(int n) {
+        //防止数组越界
+        int[] dp = new int[n + 1];
+        //当1阶和2阶时直接返回
+        if (n <= 2) return n;
+        dp[1] = 1;
+        dp[2] = 2;
+        //从3开始，不管dp[0]
+        for (int i = 3 ; i <= n; i ++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
+}
